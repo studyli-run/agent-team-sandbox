@@ -20,9 +20,10 @@ def response_for(path):
 
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
-        status, payload = response_for(self.path.split("?", 1)[0])
+        path = self.path.split("?", 1)[0]
+        status, payload = response_for(path)
         body = json.dumps(payload).encode()
-        log("request", path=self.path, status=status)
+        log("request", path=path, status=status)
         self.send_response(status)
         self.send_header("Content-Type", "application/json")
         self.send_header("Content-Length", str(len(body)))
