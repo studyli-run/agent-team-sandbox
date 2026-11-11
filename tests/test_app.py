@@ -48,6 +48,7 @@ def test_request_log_path_strips_query(monkeypatch):
     assert body["status"] == "ok"
     request_logs = [r for r in records if r["event"] == "request"]
     assert len(request_logs) == 1
+    assert request_logs[0]["method"] == "GET"
     assert request_logs[0]["path"] == "/health"
     assert "?" not in request_logs[0]["path"]
 
@@ -58,6 +59,7 @@ def test_request_log_path_without_query(monkeypatch):
     assert body["status"] == "ok"
     request_logs = [r for r in records if r["event"] == "request"]
     assert len(request_logs) == 1
+    assert request_logs[0]["method"] == "GET"
     assert request_logs[0]["path"] == "/health"
 
 
